@@ -1,0 +1,17 @@
+SWAP='/tmp/home'
+
+if ! mkdir "$SWAP"
+then
+	echo "failed to create $SWAP"
+	exit 1
+fi
+
+if ! find "$HOME" -mindepth 1 -maxdepth 1 -type d -exec mv '{}' "$SWAP" \;
+then
+	echo "failed to move directories from $HOME to $SWAP"
+fi
+
+if ! find "$HOME" -type f -exec mv '{}' "$SWAP" \;
+then
+	echo "failed to move files from $HOME to $SWAP"
+fi
